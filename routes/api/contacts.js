@@ -8,16 +8,16 @@ const {
   addContact,
 } = require("../../controllers/contacts-controllers");
 const schemas = require("../../schemas/contacts-schemas");
-const validateBody = require("../../decorators/validateBody");
+const {validateBody, validateAddContact} = require("../../decorators/validate");
 
 router.get("/", getAllContacts);
 
 router.get("/:contactId", getContactById);
 
-router.post("/", validateBody(schemas.contactsAddSchema), addContact);
+router.post("/", validateAddContact, addContact);
 
 router.delete("/:contactId", deleteContactById);
 
-router.put("/:contactId",validateBody(schemas.contactsAddSchema), updateContactById);
+router.put("/:contactId", validateBody(schemas.contactsAddSchema), updateContactById);
 
 module.exports = router;

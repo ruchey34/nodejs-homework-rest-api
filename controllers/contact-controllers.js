@@ -12,7 +12,6 @@ const getAllContacts = async (req, res) => {
 
 const getContactById = async (req, res) => {
   const { contactId } = req.params;
-  console.log(req);
   const result = await contactsService.getContactById(contactId);
   if (!result) {
     throw HttpError(404);
@@ -21,13 +20,7 @@ const getContactById = async (req, res) => {
 };
 
 const addContact = async (req, res) => {
-  const error = await contactsAddSchema.validate(req.body);
-  console.log(error);
-  if (error) {
-    throw HttpError(400, error.message);
-  }
   const result = await contactsService.addContact(req.body);
-
   res.status(201).json(result);
 };
 
