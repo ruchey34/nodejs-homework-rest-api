@@ -6,8 +6,9 @@ const {
   deleteContactById,
   updateContactById,
   addContact,
+  updateStatusContact,
 } = require("../../controllers/contacts-controllers");
-const schemas = require("../../schemas/contacts-schemas");
+const { contactsAddSchema, updateFavoriteSchema } = require("../../schemas/contacts-schemas");
 const {validateBody, validateAddContact} = require("../../decorators/validate");
 
 router.get("/", getAllContacts);
@@ -18,6 +19,8 @@ router.post("/", validateAddContact, addContact);
 
 router.delete("/:contactId", deleteContactById);
 
-router.put("/:contactId", validateBody(schemas.contactsAddSchema), updateContactById);
+router.put("/:contactId", validateBody(contactsAddSchema), updateContactById);
+
+router.patch("/:contactId/favorite", validateBody(updateFavoriteSchema), updateStatusContact);
 
 module.exports = router;
